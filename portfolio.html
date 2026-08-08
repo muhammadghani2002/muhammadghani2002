@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Rayan Ghani — Electrical Engineer</title>
+<meta name="description" content="Electrical engineering portfolio — PCB design, embedded systems, power systems, and MEP/controls work.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#0A1626;
+    --bg-1:#0F2038;
+    --bg-2:#152A47;
+    --line:#24405F;
+    --line-soft:#1A324E;
+    --text-hi:#EDF3FA;
+    --text-mid:#AFC2D6;
+    --text-low:#6F87A2;
+    --signal:#4CE6A8;
+    --signal-dim:#2C5F4C;
+    --amber:#E8A857;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-0);
+    color:var(--text-hi);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--signal); color:var(--bg-0);}
+  a{color:var(--signal); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 32px;}
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; font-weight:500; letter-spacing:-0.01em;}
+
+  /* nav */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(10,22,38,0.88); backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
+  .brand{font-family:'IBM Plex Mono', monospace; font-size:14px; color:var(--text-hi); letter-spacing:0.02em;}
+  .brand span{color:var(--signal);}
+  .navlinks{display:flex; gap:28px; font-size:13px;}
+  .navlinks a{color:var(--text-mid); font-family:'IBM Plex Mono', monospace; letter-spacing:0.02em;}
+  .navlinks a:hover{color:var(--signal); text-decoration:none;}
+  @media (max-width:640px){.navlinks{display:none;}}
+
+  /* hero */
+  .hero{padding:96px 0 72px; position:relative; overflow:hidden;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--signal);
+    letter-spacing:0.12em; text-transform:uppercase; margin-bottom:18px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:''; width:8px; height:8px; border-radius:50%; background:var(--signal); box-shadow:0 0 8px var(--signal);}
+  .hero h1{font-size:clamp(34px,5vw,54px); line-height:1.08; margin-bottom:16px; max-width:780px;}
+  .hero p.lede{font-size:18px; color:var(--text-mid); max-width:600px; margin-bottom:32px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:56px;}
+  .btn{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; padding:11px 20px;
+    border:1px solid var(--line); border-radius:3px; color:var(--text-hi);
+    display:inline-flex; align-items:center; gap:8px; transition:all 0.15s ease;
+  }
+  .btn:hover{border-color:var(--signal); color:var(--signal); text-decoration:none; background:rgba(76,230,168,0.06);}
+  .btn.primary{background:var(--signal); color:var(--bg-0); border-color:var(--signal); font-weight:500;}
+  .btn.primary:hover{background:var(--text-hi); border-color:var(--text-hi); color:var(--bg-0);}
+
+  .scope{
+    background:var(--bg-1); border:1px solid var(--line-soft); border-radius:6px;
+    padding:0; overflow:hidden;
+  }
+  .scope-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 16px; border-bottom:1px solid var(--line-soft);
+    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-low); letter-spacing:0.06em;
+  }
+  .scope-head .dots{display:flex; gap:6px;}
+  .scope-head .dots span{width:8px; height:8px; border-radius:50%; background:var(--line);}
+  svg#scopeSvg{display:block; width:100%; height:auto;}
+  .scope-caption{
+    padding:12px 16px; font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-low);
+    border-top:1px solid var(--line-soft);
+  }
+  .scope-caption b{color:var(--signal); font-weight:500;}
+
+  /* sections */
+  section{padding:64px 0; border-top:1px solid var(--line-soft);}
+  .section-head{display:flex; align-items:baseline; gap:14px; margin-bottom:36px;}
+  .section-num{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--signal);}
+  .section-head h2{font-size:24px;}
+  .section-sub{color:var(--text-mid); font-size:15px; margin:-24px 0 32px; max-width:560px;}
+
+  /* about */
+  .about-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:48px;}
+  @media (max-width:760px){.about-grid{grid-template-columns:1fr;}}
+  .about-grid p{color:var(--text-mid); font-size:15.5px; margin-bottom:16px;}
+  .about-grid p b{color:var(--text-hi); font-weight:500;}
+  .facts{display:flex; flex-direction:column; gap:0;}
+  .fact{padding:14px 0; border-bottom:1px solid var(--line-soft); display:flex; justify-content:space-between; gap:16px; font-size:13.5px;}
+  .fact:first-child{padding-top:0;}
+  .fact-k{color:var(--text-low); font-family:'IBM Plex Mono', monospace;}
+  .fact-v{color:var(--text-hi); text-align:right;}
+
+  /* BOM table */
+  .bom{width:100%; border-collapse:collapse; font-size:13.5px;}
+  .bom thead th{
+    text-align:left; font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-low);
+    text-transform:uppercase; letter-spacing:0.08em; padding:0 12px 10px; border-bottom:1px solid var(--line);
+  }
+  .bom tbody td{padding:13px 12px; border-bottom:1px solid var(--line-soft); vertical-align:top; color:var(--text-mid);}
+  .bom tbody tr:hover{background:rgba(76,230,168,0.03);}
+  .bom .ref{font-family:'IBM Plex Mono', monospace; color:var(--signal); white-space:nowrap;}
+  .bom .cat{color:var(--text-hi); font-weight:500;}
+  @media (max-width:700px){
+    .bom thead{display:none;}
+    .bom tbody tr{display:block; padding:14px 0; border-bottom:1px solid var(--line-soft);}
+    .bom tbody td{display:block; padding:2px 0; border:none;}
+  }
+
+  /* projects */
+  .proj-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media (max-width:760px){.proj-grid{grid-template-columns:1fr;}}
+  .card{
+    background:var(--bg-1); border:1px solid var(--line-soft); border-radius:6px; padding:22px 24px;
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .card-top{display:flex; align-items:center; justify-content:space-between;}
+  .card-ref{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--signal);}
+  .card-tag{font-family:'IBM Plex Mono', monospace; font-size:10px; color:var(--text-low); border:1px solid var(--line); padding:3px 8px; border-radius:20px;}
+  .card h3{font-size:17px; margin-bottom:2px;}
+  .card .card-meta{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-low);}
+  .card ul{list-style:none; display:flex; flex-direction:column; gap:8px; margin-top:6px;}
+  .card li{font-size:13.5px; color:var(--text-mid); padding-left:16px; position:relative;}
+  .card li::before{content:'—'; position:absolute; left:0; color:var(--line);}
+  .card li b{color:var(--text-hi); font-weight:500;}
+  .card.featured{grid-column:1 / -1; border-color:var(--signal-dim);}
+  .card.featured .card-ref{background:rgba(76,230,168,0.1); padding:2px 8px; border-radius:3px;}
+
+  /* experience */
+  .xp-item{display:grid; grid-template-columns:180px 1fr; gap:24px; padding:24px 0; border-bottom:1px solid var(--line-soft);}
+  .xp-item:last-child{border-bottom:none;}
+  @media (max-width:640px){.xp-item{grid-template-columns:1fr; gap:6px;}}
+  .xp-date{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--text-low); padding-top:2px;}
+  .xp-role{font-size:16px; color:var(--text-hi); margin-bottom:2px;}
+  .xp-org{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--signal); margin-bottom:10px;}
+  .xp-item p{font-size:14px; color:var(--text-mid);}
+
+  /* awards */
+  .awards{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media (max-width:640px){.awards{grid-template-columns:1fr;}}
+  .award{border:1px solid var(--line-soft); border-radius:6px; padding:20px 22px; background:var(--bg-1);}
+  .award .card-ref{margin-bottom:8px; display:block;}
+  .award h3{font-size:15px; margin-bottom:6px;}
+  .award p{font-size:13.5px; color:var(--text-mid);}
+
+  /* footer / contact */
+  footer{padding:72px 0 48px;}
+  .contact-panel{
+    border:1px solid var(--line-soft); border-radius:8px; padding:44px; text-align:center;
+    background:radial-gradient(circle at 50% 0%, rgba(76,230,168,0.06), transparent 60%);
+  }
+  .contact-panel h2{font-size:26px; margin-bottom:12px;}
+  .contact-panel p{color:var(--text-mid); margin-bottom:28px; max-width:440px; margin-left:auto; margin-right:auto;}
+  .contact-links{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .footnote{text-align:center; margin-top:56px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-low);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">M<span>_</span>GHANI</div>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Available — Fall 2026 / Spring 2027</div>
+    <h1>Muhammad Rayan Ghani<br>Electrical Engineer.</h1>
+    <p class="lede">M.S. student in Electrical &amp; Computer Engineering at the University of Oklahoma. I design circuits, debug real hardware, and coordinate electrical systems — from PCB layout to power distribution.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="#projects">View projects</a>
+      <a class="btn" href="#contact">Get in touch</a>
+      <a class="btn" href="mailto:muhammadrayanghani2002@gmail.com"><i>↓</i> Resume</a>
+    </div>
+
+    <div class="scope">
+      <div class="scope-head">
+        <span>CH1 — POWER RAIL / TIME</span>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </div>
+      <svg id="scopeSvg" viewBox="0 0 1000 220" preserveAspectRatio="none">
+        <defs>
+          <pattern id="grid" width="50" height="22" patternUnits="userSpaceOnUse">
+            <path d="M 50 0 L 0 0 0 22" fill="none" stroke="#152A47" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="1000" height="220" fill="#0F2038"/>
+        <rect width="1000" height="220" fill="url(#grid)"/>
+        <line x1="0" y1="110" x2="1000" y2="110" stroke="#24405F" stroke-width="1" stroke-dasharray="4 4"/>
+        <polyline id="tracePath" fill="none" stroke="#4CE6A8" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" points=""/>
+      </svg>
+      <div class="scope-caption">Diagnosed an unstable, oscillating buck-regulator output on a real board — traced to a feedback/grounding layout issue and corrected. <b>Rail confirmed stable.</b> See project 01.</div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num mono">/ 01</span><h2>About</h2></div>
+    <div class="about-grid">
+      <div>
+        <p>I'm a graduate student in <b>Electrical &amp; Computer Engineering</b> at the University of Oklahoma, working across two connected disciplines: board-level hardware design and building-scale electrical systems.</p>
+        <p>On the hardware side, I design multi-layer PCBs in <b>Altium Designer</b>, build and bring up real boards by hand, and debug them with an oscilloscope and multimeter. On the systems side, I have hands-on refinery experience with <b>protective relay schemes and switchgear</b>, and I use <b>AutoCAD Electrical</b> and <b>Revit MEP</b> for controls and building-electrical coordination work.</p>
+        <p>I'm scheduled to sit for the <b>FE (Fundamentals of Engineering) Exam</b> in September 2026.</p>
+      </div>
+      <div class="facts">
+        <div class="fact"><span class="fact-k">LOCATION</span><span class="fact-v">Norman, OK</span></div>
+        <div class="fact"><span class="fact-k">DEGREE</span><span class="fact-v">M.S. ECE — Expected Jun 2027</span></div>
+        <div class="fact"><span class="fact-k">GPA</span><span class="fact-v">4.0 / 4.0</span></div>
+        <div class="fact"><span class="fact-k">STATUS</span><span class="fact-v">U.S. Permanent Resident</span></div>
+        <div class="fact"><span class="fact-k">SPONSORSHIP</span><span class="fact-v">Not required</span></div>
+        <div class="fact"><span class="fact-k">CREDENTIAL</span><span class="fact-v">FE Exam — Sep 2026</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num mono">/ 02</span><h2>Skills — bill of materials</h2></div>
+    <table class="bom">
+      <thead><tr><th>Ref</th><th>Category</th><th>Items</th></tr></thead>
+      <tbody>
+        <tr><td class="ref">U1</td><td class="cat">PCB Design</td><td>Altium Designer — schematic capture, multi-layer layout, DRC, BOM &amp; Gerber outputs; Proteus, Multisim</td></tr>
+        <tr><td class="ref">U2</td><td class="cat">Hardware bring-up &amp; test</td><td>Hand soldering &amp; rework, board bring-up, oscilloscope &amp; multimeter debugging, power-rail verification</td></tr>
+        <tr><td class="ref">U3</td><td class="cat">Electrical CAD &amp; controls</td><td>AutoCAD Electrical — ladder/wiring diagrams, panel layouts, three-phase power, PLC I/O, cross-referencing</td></tr>
+        <tr><td class="ref">U4</td><td class="cat">BIM / MEP coordination</td><td>Revit MEP — multi-discipline model coordination, mechanical / electrical / plumbing systems</td></tr>
+        <tr><td class="ref">U5</td><td class="cat">HDL &amp; FPGA</td><td>Verilog, Intel Quartus, ModelSim, Intel DE10-Lite</td></tr>
+        <tr><td class="ref">U6</td><td class="cat">IC / VLSI</td><td>Tanner S-Edit, L-Edit</td></tr>
+        <tr><td class="ref">U7</td><td class="cat">Simulation &amp; analysis</td><td>PSpice, MATLAB, ANSYS Fluent, XFLR5</td></tr>
+        <tr><td class="ref">U8</td><td class="cat">Programming</td><td>Python, C, C++</td></tr>
+        <tr><td class="ref">U9</td><td class="cat">Interfaces &amp; platforms</td><td>I2C, UART, Arduino, Raspberry Pi</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num mono">/ 03</span><h2>Projects</h2></div>
+
+    <div class="proj-grid">
+
+      <div class="card featured">
+        <div class="card-top">
+          <span class="card-ref mono">01 — FEATURED</span>
+          <span class="card-tag">Spring 2026</span>
+        </div>
+        <h3>Intelligent Vehicle Sensor — Multi-Layer PCB</h3>
+        <div class="card-meta">Altium Designer · University of Oklahoma course project</div>
+        <ul>
+          <li>Designed a multi-layer PCB layout for a compact, battery-powered IoT vehicle counting/classification sensor; placed and routed <b>100+ components</b> including an RF/BLE module, GNSS receiver, buck-regulator power section, and four serial-flash devices.</li>
+          <li><b>Built and brought up the physical board</b>: hand-soldered the assembly, powered it on, and diagnosed an unstable, oscillating buck-regulator output on the oscilloscope — root-caused to a feedback-trace and grounding layout issue.</li>
+          <li>Rerouted the feedback path away from the switching node, improved grounding, and confirmed a stable rail on the scope after rework.</li>
+          <li>Generated manufacturing outputs — Gerbers, BOM, and Draftsman fabrication/assembly drawings.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="card-ref mono">02</span><span class="card-tag">Self-directed</span></div>
+        <h3>3-Phase Motor Control Schematic</h3>
+        <div class="card-meta">AutoCAD Electrical</div>
+        <ul>
+          <li>Designed a three-phase motor control circuit — power and control ladder diagrams with contactors, overload relays, circuit breakers, and start/stop logic.</li>
+          <li>Used wire numbering, component tagging, and cross-referencing for industry-standard drawings.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="card-ref mono">03</span><span class="card-tag">Course project</span></div>
+        <h3>MEP Coordination Model</h3>
+        <div class="card-meta">Revit MEP</div>
+        <ul>
+          <li>Developed a coordinated model spanning commercial and residential scenarios — mechanical, electrical, plumbing, and sanitary/vent systems in a shared model.</li>
+          <li>Cross-checked the electrical model against mechanical/plumbing to identify and resolve clashes before documentation.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="card-ref mono">04</span><span class="card-tag">Verilog</span></div>
+        <h3>FPGA-Based 4-bit ALU</h3>
+        <div class="card-meta">DE10-Lite · ModelSim</div>
+        <ul>
+          <li>Add/subtract, AND/OR/XOR with multiplexed control and a carry-lookahead adder.</li>
+          <li>Verified across all input combinations; synthesized using under 6% of logic resources.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="card-ref mono">05</span><span class="card-tag">Verilog</span></div>
+        <h3>FPGA Reaction-Timer System</h3>
+        <div class="card-meta">DE10-Lite</div>
+        <ul>
+          <li>Clock-divider, counter, and FSM modules with pushbutton debouncing and 7-segment output.</li>
+          <li>Hardware results matched simulation timing within ~5 ms.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="card-ref mono">06</span><span class="card-tag">VLSI</span></div>
+        <h3>8-bit CMOS Parity Generator</h3>
+        <div class="card-meta">Tanner S-Edit · L-Edit</div>
+        <ul>
+          <li>Even-parity generator (XOR tree) with optimized transistor count.</li>
+          <li>Validated layout in L-Edit, verified operation in Multisim.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="card-ref mono">07</span><span class="card-tag">Embedded</span></div>
+        <h3>OTP Fingerprint Bank-Locker</h3>
+        <div class="card-meta">R307 sensor · Arduino</div>
+        <ul>
+          <li>Biometric locker with keypad-OTP authentication, GSM alerts, and motorized lock control.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num mono">/ 04</span><h2>Experience</h2></div>
+
+    <div class="xp-item">
+      <div class="xp-date mono">MAY — JUL 2024</div>
+      <div>
+        <div class="xp-role">Electrical Engineering Intern</div>
+        <div class="xp-org mono">OQ Oil Refinery — Sohar, Oman</div>
+        <p>Troubleshot and optimized protective relay schemes with senior engineers; performed inspections, preventive maintenance, and safety/compliance testing on switchgear, using MATLAB and PSpice for supporting circuit simulation and reliability analysis.</p>
+      </div>
+    </div>
+
+    <div class="xp-item">
+      <div class="xp-date mono">JUN — AUG 2023</div>
+      <div>
+        <div class="xp-role">Electrical Engineering Intern</div>
+        <div class="xp-org mono">Oman Air — Muscat, Oman</div>
+        <p>Supported maintenance, inspections, and troubleshooting of aircraft electrical and cabin power systems; updated maintenance documentation and safety checklists per aviation safety standards.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="awards">
+  <div class="wrap">
+    <div class="section-head"><span class="section-num mono">/ 05</span><h2>Awards &amp; leadership</h2></div>
+    <div class="awards">
+      <div class="award">
+        <span class="card-ref mono">AIAA DESIGN/BUILD/FLY</span>
+        <h3>Team Invictus</h3>
+        <p>31st worldwide / 2nd in Asia. Contributed to aircraft design using XFLR5, MATLAB, and ANSYS Fluent.</p>
+      </div>
+      <div class="award">
+        <span class="card-ref mono">BEST JUNIOR-YEAR PROJECT</span>
+        <h3>Raspberry Pi 2-D Plotter</h3>
+        <p>Real-time input–driven plotter built as a junior-year capstone project.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-panel">
+      <h2>Let's talk.</h2>
+      <p>Open to Fall 2026 and Spring 2027 internships. U.S. permanent resident — no sponsorship required.</p>
+      <div class="contact-links">
+        <a class="btn primary" href="mailto:muhammadrayanghani2002@gmail.com">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/muhammadrayan-ghani" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="footnote">MUHAMMAD RAYAN GHANI — NORMAN, OK — BUILT WITH VANILLA HTML / CSS / JS</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var svg = document.getElementById('tracePath');
+  var W = 1000, H = 220, MID = 110, N = 90;
+  function noisy(t){
+    var chaos = (1 - t);
+    var v = MID
+      + Math.sin(t * 40 + performance.now()*0.002) * 55 * chaos
+      + Math.sin(t * 13) * 30 * chaos
+      + (Math.random() - 0.5) * 40 * chaos;
+    return v;
+  }
+  function stable(x, amp){
+    return MID + Math.sin(x * 0.02) * amp;
+  }
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var start = null;
+  var DURATION = reduce ? 1 : 2600;
+  function frame(ts){
+    if(!start) start = ts;
+    var elapsed = ts - start;
+    var progress = Math.min(elapsed / DURATION, 1);
+    var pts = [];
+    for(var i = 0; i <= N; i++){
+      var x = (i / N) * W;
+      var localT = i / N;
+      var y;
+      if(reduce){
+        y = stable(x, 6);
+      } else {
+        var chaosAmt = Math.max(0, 1 - progress * 1.15 - localT * 0.15);
+        var settleAmt = 1 - chaosAmt;
+        var chaoticY = MID
+          + Math.sin(localT * 40 + ts * 0.006) * 50
+          + Math.sin(localT * 17 + ts*0.003) * 22
+          + Math.sin(ts * 0.01 + i) * 14;
+        var stableY = stable(x, 6);
+        y = chaoticY * chaosAmt + stableY * settleAmt;
+      }
+      pts.push(x.toFixed(1) + ',' + y.toFixed(1));
+    }
+    svg.setAttribute('points', pts.join(' '));
+    if(progress < 1 && !reduce){
+      requestAnimationFrame(frame);
+    } else {
+      loopStable(ts);
+    }
+  }
+  function loopStable(ts0){
+    function stepStable(ts){
+      var pts = [];
+      for(var i = 0; i <= N; i++){
+        var x = (i / N) * W;
+        var y = MID + Math.sin(x * 0.02 + ts * 0.0015) * 6;
+        pts.push(x.toFixed(1) + ',' + y.toFixed(1));
+      }
+      svg.setAttribute('points', pts.join(' '));
+      requestAnimationFrame(stepStable);
+    }
+    requestAnimationFrame(stepStable);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+
+</body>
+</html>
